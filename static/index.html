@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sankar AI — Elegant Voice Intelligence</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-cream: #FDFBF7;
+            --pastel-pink: #F7E7E4;
+            --pastel-sage: #E3EAE3;
+            --glass-bg: rgba(255, 255, 255, 0.45);
+            --glass-border: rgba(255, 255, 255, 0.6);
+            --text-dark: #2C3531;
+            --text-muted: #6D7773;
+            --wave-glow: rgba(231, 201, 196, 0.7);
+            --user-bubble: rgba(227, 234, 227, 0.7); 
+            --bot-bubble: rgba(247, 231, 228, 0.6);  
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, var(--bg-cream) 0%, var(--pastel-pink) 50%, var(--pastel-sage) 100%);
+            background-size: 400% 400%;
+            animation: fluidBackground 15s ease infinite;
+            color: var(--text-dark);
+            min-height: 100vh;
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            overflow-x: hidden;
+            padding: 40px;
+        }
+        @keyframes fluidBackground {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        header { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; width: 100%; z-index: 10; }
+        .logo { font-weight: 300; font-size: 35px; letter-spacing: 0.15em; text-transform: uppercase;font-weight: bold; }
+        .status-pill { display: inline-flex; align-items: center; gap: 8px; background: var(--glass-bg); border: 1px solid var(--glass-border); padding: 8px 16px; border-radius: 30px; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); font-size: 0.85rem; font-weight: 300; letter-spacing: 0.05em; }
+        .status-dot { width: 6px; height: 6px; background: #A3BCA3; border-radius: 50%; box-shadow: 0 0 8px #A3BCA3; }
+        main { display: grid; grid-template-columns: 1.1fr 0.9fr; align-items: center; max-width: 1200px; margin: 0 auto; width: 100%; gap: 50px; padding: 20px 0; }
+        .chat-display-window { display: flex; flex-direction: column; height: 480px; background: rgba(255, 255, 255, 0.25); border: 1px solid var(--glass-border); border-radius: 40px; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow: 0 30px 60px rgba(44, 53, 49, 0.02); padding: 35px; overflow: hidden; }
+        .chat-display-window h2 { font-weight: 200; font-size: 1.8rem; letter-spacing: -0.02em; margin-bottom: 20px; border-bottom: 1px solid rgba(0, 0, 0, 0.05); padding-bottom: 12px; }
+        .chat-stream { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 16px; padding-right: 10px; scroll-behavior: smooth; }
+        .chat-stream::-webkit-scrollbar { width: 4px; }
+        .chat-stream::-webkit-scrollbar-track { background: transparent; }
+        .chat-stream::-webkit-scrollbar-thumb { background: rgba(0, 0, 0, 0.05); border-radius: 10px; }
+        .msg-bubble { max-width: 85%; padding: 14px 20px; border-radius: 22px; font-size: 0.95rem; line-height: 1.5; font-weight: 300; animation: bubbleFadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; word-wrap: break-word; box-shadow: 0 4px 10px rgba(0,0,0,0.01); }
+        .user-msg { align-self: flex-end; background: var(--user-bubble); color: var(--text-dark); border-bottom-right-radius: 4px; border: 1px solid rgba(186, 203, 184, 0.3); }
+        .bot-msg { align-self: flex-start; background: var(--bot-bubble); color: var(--text-dark); border-bottom-left-radius: 4px; border: 1px solid rgba(232, 211, 208, 0.4); }
+        @keyframes bubbleFadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+        .console-container { position: relative; display: flex; justify-content: center; align-items: center; width: 100%; height: 480px; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 40px; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow: 0 30px 60px rgba(44, 53, 49, 0.04); padding: 40px; }
+        .wave-wrapper { display: flex; align-items: center; justify-content: center; gap: 8px; height: 120px; position: relative; }
+        .wave-bar { width: 4px; height: 15px; background: linear-gradient(180deg, #E8D3D0 0%, #BACBB8 100%); border-radius: 10px; animation: baselineNoise 1.2s ease-in-out infinite alternate; box-shadow: 0 0 15px var(--wave-glow); transition: all 0.3s; }
+        .wave-bar:nth-child(1)  { animation-delay: 0.1s; height: 25px; }
+        .wave-bar:nth-child(2)  { animation-delay: 0.4s; height: 45px; }
+        .wave-bar:nth-child(3)  { animation-delay: 0.2s; height: 65px; }
+        .wave-bar:nth-child(4)  { animation-delay: 0.6s; height: 85px; }
+        .wave-bar:nth-child(5)  { animation-delay: 0.3s; height: 40px; }
+        .wave-bar:nth-child(6)  { animation-delay: 0.7s; height: 70px; }
+        .wave-bar:nth-child(7)  { animation-delay: 0.1s; height: 95px; }
+        .wave-bar:nth-child(8)  { animation-delay: 0.5s; height: 50px; }
+        .wave-bar:nth-child(9)  { animation-delay: 0.8s; height: 30px; }
+        .wave-bar:nth-child(10) { animation-delay: 0.2s; height: 15px; }
+        .recording-active .wave-bar { animation: fullVoiceWave 0.6s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite alternate; }
+        @keyframes baselineNoise { 0% { transform: scaleY(1); } 100% { transform: scaleY(1.6); } }
+        @keyframes fullVoiceWave { 0% { transform: scaleY(0.4); } 100% { transform: scaleY(3.2); } }
+        .interactive-footer { position: absolute; bottom: 40px; left: 0; right: 0; display: flex; flex-direction: column; align-items: center; gap: 16px; }
+        .prompt-caption { font-size: 0.85rem; font-weight: 300; letter-spacing: 0.05em; color: var(--text-muted); transition: color 0.3s; }
+        .action-circle { width: 64px; height: 64px; border-radius: 50%; background: #FFFFFF; border: 1px solid var(--glass-border); cursor: pointer; display: flex; justify-content: center; align-items: center; box-shadow: 0 10px 25px rgba(44, 53, 49, 0.03); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        .action-circle:hover { transform: scale(1.05); box-shadow: 0 15px 30px rgba(44, 53, 49, 0.06); background: var(--bg-cream); }
+        .action-circle svg { width: 20px; height: 20px; fill: var(--text-dark); transition: fill 0.3s, transform 0.3s; }
+        .action-circle.active-state { background: #E8D3D0; border-color: rgba(232, 211, 208, 0.8); box-shadow: 0 0 25px rgba(232, 211, 208, 0.5); }
+        .action-circle.active-state svg { fill: #FFFFFF; transform: scale(0.9); }
+        footer { max-width: 1200px; margin: 0 auto; width: 100%; display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; font-weight: 300; letter-spacing: 0.08em; color: var(--text-muted); z-index: 10; }
+        @media(max-width: 968px) { body { padding: 24px; } main { grid-template-columns: 1fr; gap: 30px; } .chat-display-window, .console-container { height: 400px; } }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">Sankar Voice Assistant</div>
+        <div class="status-pill">
+            <div class="status-dot"></div>
+            <span>System Active</span>
+        </div>
+    </header>
+
+    <main>
+        <div class="chat-display-window">
+            <h2>Dialogue Transcript</h2>
+            <div class="chat-stream" id="chatStream">
+                <div class="msg-bubble bot-msg">Namaste! Hello! How can I help you today? Speak in English, Hindi or Telugu.</div>
+            </div>
+        </div>
+
+        <div class="console-container">
+            <div class="wave-wrapper" id="waveContainer">
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+                <div class="wave-bar; height: 50px;"></div>
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+            </div>
+
+            <div class="interactive-footer">
+                <div class="prompt-caption" id="statusLabel">Tap interface to converse</div>
+                <button class="action-circle" id="actionTrigger" aria-label="Toggle interaction state">
+                    <svg id="micIcon" viewBox="0 0 24 24">
+                        <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.42 2.72 6.2 6 6.72V21h2v-3.28c3.28-.52 6-3.3 6-6.72h-1.7z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div>&copy; 2026 Sonkor Group Global Inc.</div>
+        <div>Ultra-Low Latency Duplex Node</div>
+    </footer>
+
+    <script>
+        const trigger = document.getElementById('actionTrigger');
+        const waveContainer = document.getElementById('waveContainer');
+        const statusLabel = document.getElementById('statusLabel');
+        const chatStream = document.getElementById('chatStream');
+
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        let recognition;
+        let recordingStatus = false;
+
+        if (SpeechRecognition) {
+            recognition = new SpeechRecognition();
+            recognition.continuous = false;
+            recognition.interimResults = false;
+            
+            // Set primary to Hindi India, which allows smooth code-switching for Indian speech accents
+            recognition.lang = 'hi-IN'; 
+
+            // Add support for multi-lingual listening parameters where supported by the browser base
+            recognition.alternativeLanguageCodes = ['te-IN', 'en-IN'];
+
+            recognition.onstart = () => {
+                recordingStatus = true;
+                trigger.classList.add('active-state');
+                waveContainer.classList.add('recording-active');
+                statusLabel.innerText = "Listening to input...";
+                statusLabel.style.color = "var(--text-dark)";
+            };
+
+            recognition.onresult = async (event) => {
+                const speechPayload = event.results[0][0].transcript;
+                statusLabel.innerText = "Processing dynamic context...";
+                executeVoiceExchange(speechPayload);
+            };
+
+            recognition.onerror = (e) => {
+                console.error(e);
+                statusLabel.innerText = "Audio stream interrupted.";
+                resetConsoleUI();
+            };
+
+            recognition.onend = () => { resetConsoleUI(); };
+        }
+
+        trigger.addEventListener('click', () => {
+            if (!recognition) return;
+            if (!recordingStatus) { recognition.start(); } else { recognition.stop(); }
+        });
+
+        function resetConsoleUI() {
+            recordingStatus = false;
+            trigger.classList.remove('active-state');
+            waveContainer.classList.remove('recording-active');
+            if(statusLabel.innerText === "Listening to input...") {
+                statusLabel.innerText = "Tap interface to converse";
+            }
+            statusLabel.style.color = "var(--text-muted)";
+        }
+
+        async function executeVoiceExchange(textData) {
+            try {
+                const payloadExchange = await fetch('/api/voice-chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ text: textData })
+                });
+                const responseData = await payloadExchange.json();
+                
+                // Print transcription instantly to dialogue box using whatever text script comes back
+                appendTranscriptBubble(responseData.user_text, 'user-msg');
+                appendTranscriptBubble(responseData.bot_text, 'bot-msg');
+
+                if(responseData.audio_url) {
+                    const audioStream = new Audio(responseData.audio_url + "?t=" + new Date().getTime());
+                    audioStream.play();
+                }
+                statusLabel.innerText = "Tap interface to converse";
+            } catch(err) {
+                console.error(err);
+                statusLabel.innerText = "System routing failure.";
+            }
+        }
+
+        function appendTranscriptBubble(text, senderClass) {
+            const bubble = document.createElement('div');
+            bubble.className = `msg-bubble ${senderClass}`;
+            bubble.innerText = text;
+            chatStream.appendChild(bubble);
+            chatStream.scrollTop = chatStream.scrollHeight;
+        }
+    </script>
+</body>
+</html>
