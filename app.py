@@ -6,17 +6,20 @@ from flask_cors import CORS
 from gtts import gTTS
 from google import genai
 from google.genai import types
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__, static_folder='static')
 CORS(app)
 
 # 1. INITIALIZE KEY POOL (Make sure NO placeholder text remains)
 API_KEYS = [
-    "AIzaSyD3ySXezFbW-szKbZTBeMaZw5n0MPnh7bU",  # Your current key
-    "AIzaSyDFgmSRhYDBTkyqHY9bwAGhdZcun8D0FxU",    # Placeholder for key 2
-    "AIzaSyBLQ5fJnONl6VVgfuVtOjRNkRqBExABT8U"    
-    "AIzaSyCvdqycoMTm3zHdpWYs8haVvyt79kLEdHc"      # Placeholder for key 3
-    "AIzaSyA-PWlmQmD6cvcqpVYcUDygAHxNKHalYNs"      # Replace with your active key 3
+    os.getenv("GEMINI_KEY_1"),
+    os.getenv("GEMINI_KEY_2"),
+    os.getenv("GEMINI_KEY_3"),
+    os.getenv("GEMINI_KEY_4"),
+    os.getenv("GEMINI_KEY_5")
 ]
 
 # Track the index of the currently active key globally
